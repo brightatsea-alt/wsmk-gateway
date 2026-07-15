@@ -30,10 +30,10 @@
     overflow-x:hidden;
     position:relative;
     display:flex;
-    padding:48px 20px;
+    padding:clamp(20px,4vh,48px) 20px;
   }
-  /* extra top room for the fixed topbar — mobile only, desktop spacing untouched */
-  @media(max-width:560px){ body{padding-top:96px; padding-bottom:56px} }
+  /* extra top room for the fixed topbar — mobile only */
+  @media(max-width:560px){ body{padding:72px 14px 24px} }
 
   /* ---------- Layered atmospheric background ---------- */
   .bg{position:fixed;inset:0;z-index:-3;overflow:hidden}
@@ -81,26 +81,32 @@
   /* margin:auto centers like align-items:center when there's free space,
      but resolves to 0 when content overflows — so tall pages scroll instead of clipping */
   .stage{width:100%;max-width:1160px;margin:auto;position:relative;z-index:2;text-align:center}
-  .kicker{font-family:'Rajdhani';font-weight:600;letter-spacing:.42em;text-transform:uppercase;
-    font-size:13px;color:var(--cyan);margin-bottom:18px;opacity:0;animation:rise .9s .1s forwards}
-  h1{font-weight:800;line-height:1.02;font-size:clamp(42px,7vw,88px);letter-spacing:-.02em;
+  .kicker{font-family:'Rajdhani';font-weight:600;letter-spacing:.36em;text-transform:uppercase;
+    font-size:clamp(9px,1.5vh,13px);color:var(--cyan);margin-bottom:clamp(6px,1.4vh,18px);
+    opacity:0;animation:rise .9s .1s forwards}
+  h1{font-weight:800;line-height:1.02;font-size:clamp(26px,5.2vw + 1vh,80px);letter-spacing:-.02em;
     opacity:0;animation:rise .9s .25s forwards}
   h1 .grad{background:linear-gradient(120deg,#fff 10%,var(--cyan) 55%,var(--blue-bright) 90%);
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .subtitle{margin:20px auto 0;max-width:560px;font-weight:300;font-size:clamp(15px,1.6vw,18px);
+  .subtitle{margin:clamp(8px,1.6vh,20px) auto 0;max-width:560px;font-weight:300;
+    font-size:clamp(11px,1.5vh,18px);line-height:1.45;
     color:#b7cdec;opacity:0;animation:rise .9s .4s forwards}
-  .rule{width:70px;height:3px;margin:30px auto 0;border-radius:2px;
+  .rule{width:70px;height:3px;margin:clamp(12px,2.4vh,30px) auto 0;border-radius:2px;
     background:linear-gradient(90deg,transparent,var(--blue-bright),transparent);
     opacity:0;animation:rise .9s .5s forwards}
+  /* very short screens: drop the subtitle to buy vertical room */
+  @media(max-height:620px){ .subtitle{display:none} }
 
   /* ---------- Gate buttons ---------- */
-  .gates{margin-top:52px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  /* 3x2 on desktop, 2x3 on mobile — always 6 tiles, one screen */
+  .gates{margin-top:clamp(16px,3.4vh,52px);display:grid;
+    grid-template-columns:repeat(3,1fr);gap:clamp(9px,1.6vh,20px)}
   @media(max-width:980px){.gates{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:560px){.gates{grid-template-columns:1fr}}
   .gate{
     position:relative;display:flex;flex-direction:column;justify-content:space-between;
     text-decoration:none;color:var(--ice);text-align:left;
-    padding:26px 24px 22px;min-height:184px;border-radius:20px;
+    padding:clamp(12px,1.9vh,26px) clamp(13px,1.6vw,24px);
+    min-height:clamp(88px,13.5vh,184px);border-radius:clamp(12px,1.6vh,20px);
     background:linear-gradient(160deg,rgba(23,44,82,.72),rgba(10,22,44,.72));
     border:1px solid var(--line);
     backdrop-filter:blur(14px);
@@ -122,17 +128,25 @@
   .gate:hover::before{transform:translateX(120%)}
   .gate:hover::after{opacity:1}
 
-  .gate .idx{font-family:'Rajdhani';font-weight:700;font-size:13px;letter-spacing:.2em;color:var(--cyan);opacity:.85}
-  .gate .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;margin:14px 0 auto;
+  .gate .idx{font-family:'Rajdhani';font-weight:700;font-size:clamp(9px,1.3vh,13px);
+    letter-spacing:.2em;color:var(--cyan);opacity:.85}
+  .gate .ic{width:clamp(28px,4.4vh,46px);height:clamp(28px,4.4vh,46px);
+    border-radius:clamp(8px,1.2vh,12px);display:grid;place-items:center;
+    margin:clamp(6px,1.2vh,14px) 0 auto;
     background:radial-gradient(circle at 30% 25%,rgba(74,168,255,.35),rgba(20,44,84,.6));
     border:1px solid var(--line)}
-  .gate .ic svg{width:24px;height:24px;stroke:var(--cyan);fill:none;stroke-width:1.7}
-  .gate h3{font-size:20px;font-weight:700;letter-spacing:.01em;margin-top:14px}
-  .gate .go{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12.5px;color:#9db8dc;
+  .gate .ic svg{width:55%;height:55%;stroke:var(--cyan);fill:none;stroke-width:1.7}
+  .gate h3{font-size:clamp(12.5px,1.9vh,20px);font-weight:700;line-height:1.25;
+    letter-spacing:.01em;margin-top:clamp(6px,1.2vh,14px)}
+  .gate .go{display:flex;align-items:center;gap:6px;margin-top:clamp(3px,.7vh,8px);
+    font-size:clamp(8.5px,1.2vh,12.5px);color:#9db8dc;
     font-family:'Rajdhani';font-weight:600;letter-spacing:.14em;text-transform:uppercase}
   .gate .go .arw{transition:transform .35s}
   .gate:hover .go .arw{transform:translateX(6px)}
-  .gate .host{position:absolute;right:22px;bottom:20px;font-size:11px;color:#5f7aa0;font-weight:300;letter-spacing:.02em}
+  .gate .host{position:absolute;right:clamp(12px,1.4vw,22px);bottom:clamp(10px,1.4vh,20px);
+    font-size:clamp(8px,1vh,11px);color:#5f7aa0;font-weight:300;letter-spacing:.02em}
+  /* hide the host label where space is tight so titles stay readable */
+  @media(max-width:980px){ .gate .host{display:none} }
 
   .g-in-1{animation:rise .7s .6s forwards}
   .g-in-2{animation:rise .7s .72s forwards}
@@ -141,7 +155,8 @@
   .g-in-5{animation:rise .7s 1.08s forwards}
   .g-in-6{animation:rise .7s 1.2s forwards}
 
-  footer{margin-top:46px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  footer{margin-top:clamp(14px,2.6vh,46px);font-size:clamp(8.5px,1.2vh,11.5px);
+    letter-spacing:.16em;text-transform:uppercase;
     color:#5c76a0;font-family:'Rajdhani';font-weight:500;opacity:0;animation:rise .9s 1s forwards}
 
   @keyframes rise{to{opacity:1;transform:translateY(0)}}
