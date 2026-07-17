@@ -105,15 +105,19 @@
   }
 
   /* ---------- Gate buttons ---------- */
-  /* 3x2 on desktop, 2x3 on mobile — always 6 tiles, one screen */
-  .gates{margin-top:clamp(16px,3.4vh,52px);display:grid;
-    grid-template-columns:repeat(3,1fr);gap:clamp(9px,1.6vh,20px)}
-  @media(max-width:980px){.gates{grid-template-columns:repeat(2,1fr)}}
+  /* 7 tiles: 4+3 on desktop, 2 cols on mobile — always one screen */
+  .gates{margin-top:clamp(14px,3vh,52px);display:grid;
+    grid-template-columns:repeat(4,1fr);gap:clamp(8px,1.4vh,20px)}
+  @media(max-width:980px){
+    .gates{grid-template-columns:repeat(2,1fr)}
+    /* odd tile left alone on the last row → let it run full width */
+    .gate:last-child:nth-child(odd){grid-column:span 2}
+  }
   .gate{
     position:relative;display:flex;flex-direction:column;justify-content:space-between;
     text-decoration:none;color:var(--ice);text-align:left;
     padding:clamp(12px,1.9vh,26px) clamp(13px,1.6vw,24px);
-    min-height:clamp(88px,13.5vh,184px);border-radius:clamp(12px,1.6vh,20px);
+    min-height:clamp(72px,11.5vh,184px);border-radius:clamp(12px,1.6vh,20px);
     background:linear-gradient(160deg,rgba(23,44,82,.72),rgba(10,22,44,.72));
     border:1px solid var(--line);
     backdrop-filter:blur(14px);
@@ -161,6 +165,7 @@
   .g-in-4{animation:rise .7s .96s forwards}
   .g-in-5{animation:rise .7s 1.08s forwards}
   .g-in-6{animation:rise .7s 1.2s forwards}
+  .g-in-7{animation:rise .7s 1.32s forwards}
 
   footer{margin-top:clamp(14px,2.6vh,46px);font-size:clamp(8.5px,1.2vh,11.5px);
     letter-spacing:.16em;text-transform:uppercase;
@@ -288,6 +293,18 @@
           <span class="go">Enter <span class="arw">→</span></span>
         </div>
         <span class="host">wsmk-vessel-tracker.pages.dev</span>
+      </a>
+
+      <a class="gate g-in-7" href="https://wsmk-provision.pages.dev/" target="_blank" rel="noopener">
+        <span class="idx">07</span>
+        <span class="ic">
+          <svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>
+        </span>
+        <div>
+          <h3>Provision Tracker</h3>
+          <span class="go">Enter <span class="arw">→</span></span>
+        </div>
+        <span class="host">wsmk-provision.pages.dev</span>
       </a>
     </div>
 
