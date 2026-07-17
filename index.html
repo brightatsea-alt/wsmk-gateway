@@ -94,23 +94,25 @@
   .rule{width:70px;height:3px;margin:clamp(12px,2.4vh,30px) auto 0;border-radius:2px;
     background:linear-gradient(90deg,transparent,var(--blue-bright),transparent);
     opacity:0;animation:rise .9s .5s forwards}
-  /* very short screens: drop the subtitle and tighten spacing to buy vertical room */
-  @media(max-height:620px){
+  /* short screens AND phones: drop subtitle/rule to buy vertical room */
+  @media(max-height:620px), (max-width:560px){
     .subtitle{display:none}
     .rule{display:none}
     footer{margin-top:10px}
   }
-  @media(max-height:620px) and (max-width:560px){
-    body{padding:60px 12px 12px}
+  @media(max-width:560px){
+    body{padding:56px 12px 12px}
   }
 
   /* ---------- Gate buttons ---------- */
   /* 7 tiles: 4+3 on desktop, 2 cols on mobile — always one screen */
   .gates{margin-top:clamp(14px,3vh,52px);display:grid;
     grid-template-columns:repeat(4,1fr);gap:clamp(8px,1.4vh,20px)}
-  @media(max-width:980px){
+  /* tablet: 3 cols → 3+3+1 */
+  @media(max-width:980px){ .gates{grid-template-columns:repeat(3,1fr)} }
+  /* phone: 2 cols → 2+2+2+1, last odd tile runs full width */
+  @media(max-width:560px){
     .gates{grid-template-columns:repeat(2,1fr)}
-    /* odd tile left alone on the last row → let it run full width */
     .gate:last-child:nth-child(odd){grid-column:span 2}
   }
   .gate{
@@ -158,6 +160,16 @@
     font-size:clamp(8px,1vh,11px);color:#5f7aa0;font-weight:300;letter-spacing:.02em}
   /* hide the host label where space is tight so titles stay readable */
   @media(max-width:980px){ .gate .host{display:none} }
+
+  /* phones: compact single-row tiles (icon + title) so all 7 fit one screen */
+  @media(max-width:560px){
+    .gate{flex-direction:row;align-items:center;justify-content:flex-start;
+      gap:10px;min-height:56px;padding:10px 12px}
+    .gate .idx{display:none}
+    .gate .ic{margin:0;flex:none;width:28px;height:28px;border-radius:8px}
+    .gate h3{margin-top:0;font-size:12.5px;line-height:1.2}
+    .gate .go{display:none}
+  }
 
   .g-in-1{animation:rise .7s .6s forwards}
   .g-in-2{animation:rise .7s .72s forwards}
